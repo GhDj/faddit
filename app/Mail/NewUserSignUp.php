@@ -31,7 +31,7 @@ class NewUserSignUp extends Mailable
      */
     public function build()
     {
-        $this->from('hello@app.com', 'Your Application')
+        $this->from('hello@app.com', 'Faddit')
             ->subject('Welcome : ' . $this->_user->nickname)
             ->view('mail.newusersignup');
     }

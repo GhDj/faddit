@@ -15,6 +15,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/logged', 'AppController@index');
+    Route::get('/logout','AppController@UserLogout');
+    Route::get('nickname', 'AppController@ShowNicknameView');
+    Route::post('nickname', 'AppController@PostNickname');
+    Route::get('post', function(){
+        return view('app.posts');
+    });
+});
+
+
 Auth::routes();
 
 Route::get('login/facebook', 'AuthController@redirectToProvider');
