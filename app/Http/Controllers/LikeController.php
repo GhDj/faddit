@@ -6,6 +6,7 @@ use App\CommentLike;
 use App\PostLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 class LikeController extends Controller
 {
@@ -99,5 +100,23 @@ class LikeController extends Controller
         $cl->comment_id = $id;
         $cl->save();
         return 'success';
+    }
+
+    public function removePostLike($id) {
+        $pl = PostLike::where([['user_id','=',Auth::user()->id],['post_id','=',$id]])->get();
+        PostLike::destroy($pl->id);
+        return 'deleted';
+    }
+
+    public function removeCommentLike() {
+        dd(Input::all());
+        if (Request::ajax())
+        {
+            dd(Input::all());
+            $pl = CommentLike::where([['user_id','=',Auth::user()->id],['comment_id','=',Input::get('id')]])->get();
+            CommentLike::destroy($pl->id);
+            return 'deleted';
+        }
+
     }
 }

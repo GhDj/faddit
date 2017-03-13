@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth'], function () {
         return redirect('post/'.Request::get('post_id'));
 
     });
+
+    Route::get('/postlike/{id}','LikeController@postLike');
+    Route::post('removepostlike','LikeController@removePostLike');
 });
 Route::group(['middleware' => 'guest'], function () {
     Route::get('auth/facebook', 'AuthController@redirectToProvider');
@@ -47,3 +50,5 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Auth::routes();
+
+
