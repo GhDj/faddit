@@ -46,3 +46,4 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('/login', 'AuthController@LoginView');
 });
 
+Auth::routes();
