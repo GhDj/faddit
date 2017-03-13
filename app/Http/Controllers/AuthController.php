@@ -19,7 +19,8 @@ class AuthController extends Controller
      */
     public function redirectToProvider()
     {
-        return Socialite::driver('facebook')->redirect();
+        $driver = 'facebook';
+        return Socialite::driver($driver)->redirect();
     }
 
     /**
@@ -31,8 +32,8 @@ class AuthController extends Controller
     public function handleProviderCallback()
     {
         $driver = 'facebook';
-        $user = Socialite::driver('facebook')->user();
-        $local_user = SocialAccounts::where('driver', '=', 'facebook')->where('driver_id', '=', $user->id)->first();
+        $user = Socialite::driver($driver)->user();
+        $local_user = SocialAccounts::where('driver', '=', $driver)->where('driver_id', '=', $user->id)->first();
         $user_data = [
             'name' => $user->getName(),
             'email' => $user->getEmail(),
@@ -67,6 +68,6 @@ class AuthController extends Controller
     }
 
     public function LoginView(){
-        return view('auth.login');
+        return view('app.login');
     }
 }

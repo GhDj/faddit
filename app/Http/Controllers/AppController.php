@@ -27,7 +27,7 @@ class AppController extends Controller
             $user = User::find(Auth::user()->id);
             $user->nickname = $nickname;
             $user->save();
-            Mail::to($user->email)->send(new \App\Mail\NewUserSignUp($user));
+            //Mail::to($user->email)->send(new \App\Mail\NewUserSignUp($user));
             return redirect('logged');
         }
         else

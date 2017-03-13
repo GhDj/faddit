@@ -38,7 +38,7 @@ return [
     'facebook' => [
         'client_id' => '1066685136734047',
         'client_secret' => '9a0da6809f3cd062d91ec1f10e2d5659',
-        'redirect' => 'http://localhost:8000',
+        'redirect' => 'http://localhost/faddit/public/auth/facebook/callback',
     ],
 
 ];
