@@ -1,5 +1,6 @@
 <?php
 
+use App\Like;
 
 Route::get('/', function () {
     $posts = App\Post::get();
@@ -40,8 +41,30 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
-    Route::get('/postlike/{id}','LikeController@postLike');
-    Route::post('removepostlike','LikeController@removePostLike');
+
+
+
+    Route::get('/like/{id}/{category}',function($id, $cat){
+
+        $user_id = Auth::id();
+        $like = App\Like::where('user_id', $user_id)->where('el_id', $id)->where('category', $cat)->first();
+        if($like){
+                $like->delete();
+                return response()->json(['liked' => false]);
+        }else{
+            $new_like = new Like();
+            $new_like->user_id = $user_id;
+            $new_like->el_id = $id;
+            $new_like->category = $cat;
+            $new_like->save();
+            return response()->json(['liked' => true]);
+        }
+    });
+
+    Route::get('test', function(){
+        $user = App\User::first();
+        echo($user->like[0]->Element('22')->get());
+    });
 });
 Route::group(['middleware' => 'guest'], function () {
     Route::get('auth/facebook', 'AuthController@redirectToProvider');

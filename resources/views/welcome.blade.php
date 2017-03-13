@@ -14,6 +14,9 @@
             text-decoration: none;
             color: #000;
         }
+        .liked {
+            background-color : red;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -36,29 +39,27 @@
     <a href="post/{{ $post->id }}" class="post">
         <div style="border: 1px solid; margin: 20px;">{{ $post->user->nickname }} : {{ $post->body }}</div>
     </a>
-    <a href="#" id="postlike" post-id="{{ $post->id }}">Like</a>
-        <a href="#" id="postdislike" post-id="{{ $post->id }}">Dislike</a>
-    {{ Form::token() }}
+    <?php $liked = $post->user->like->where('el_id', $post->id)->where('category', 'post'); ?>
+    @if(count($liked) == 0)
+        <a href="#" id="like" like-id="{{ $post->id }}" class="" like-category='post'>Like</a>
+    @else
+        <a href="#" id="like" like-id="{{ $post->id }}" class="liked" like-category='post'>Like</a>
+    @endif
+
+
 @endforeach
 
 <script>
-    $('#postlike').click(function (e) {
-         id = $(this).attr("post-id");
-        console.log(id);
-        $.get( "postlike/"+id, function( data ) {
-
-            alert( data);
-        });
-    });
-
-    $('#postdislike').click(function (e) {
-        id = $(this).attr("post-id");
-        $.ajax({
-            url: 'removepostlike',
-            type: 'post',
-            data: {'id':id, '_token': $('input[name=_token]').val()},
-            success: function(data){
-                alert(data);
+    $('#like').click(function (e) {
+        el = $(this);
+        id = el.attr("like-id");
+        category = el.attr('like-category');
+        $.get( "like/"+id+"/"+category, function( data ) {
+            console.log(data);
+            if(data.liked){
+                el.addClass('liked');
+            }else{
+                el.removeClass('liked');
             }
         });
     });

@@ -36,9 +36,9 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => '1066685136734047',
-        'client_secret' => '9a0da6809f3cd062d91ec1f10e2d5659',
-        'redirect' => 'http://localhost/faddit/public/auth/facebook/callback',
+        'client_id' => '187705778391837',
+        'client_secret' => 'c163792e8d5685d1d5d61a464c8b2a08',
+        'redirect' => 'http://laravel.local/faddit/public/auth/facebook/callback',
     ],
 
 ];

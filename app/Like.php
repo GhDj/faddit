@@ -1,23 +1,24 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Alibi
+ * Date: 13/03/2017
+ * Time: 21:18
+ */
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CommentLike extends Model
+class Like extends Model
 {
-    protected $table = 'comment_like';
+    protected $table = 'likes';
     public $timestamps = true;
     protected $fillable = [
-        'comment_id', 'user_id'
+        'el_id', 'user_id', 'category'
     ];
-
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-    public function comment()
-    {
-        return $this->belongsTo('App\Comment');
     }
 }

@@ -15,13 +15,13 @@ class NicknameMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user() !== null && $request->route()->getUri() !=="logout")
+        if(Auth::user() !== null && $request->route()->uri() !=="logout")
         {
-            if(Auth::user()->nickname === "" && $request->route()->getUri() !=="nickname")
+            if(Auth::user()->nickname === "" && $request->route()->uri() !=="nickname")
             {
                 return redirect('nickname');
             }
-            elseif (Auth::user()->nickname !== "" && $request->route()->getUri() ==="nickname")
+            elseif (Auth::user()->nickname !== "" && $request->route()->uri() ==="nickname")
             {
                 return redirect('logged');
             }
